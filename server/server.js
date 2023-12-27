@@ -12,6 +12,7 @@ import cors from 'cors';
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import path from "path";
+import { dirname } from 'path';
 
 dotenv.config();
 
@@ -27,23 +28,20 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Use the updated __dirname here
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static(path.join(__dirname,"..","client","build")));
 
 // routes
-// app.use("/api/v1/auth", authRoutes);
-// app.use("/api/v1/category", categoryRoutes);
-// app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes);
+app.use("/api/v1/product", productRoutes);
 
-app.use("*", function (req , res){
-   res.sendFile(path.join(__dirname , "./client/build/index.html"))
-})
-
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname,"..","client","build","index.html"));
+  });
+  
 
 const PORT = process.env.PORT; // Fix the variable name to be consistent
 
-app.use('*', function (req, res) {
-    res.sendFile(path.join(__dirname, './client/build/index.js'));
-});
 
 //mongoDB connection
 connectDB();
