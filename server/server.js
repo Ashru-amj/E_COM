@@ -12,7 +12,7 @@ import cors from 'cors';
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import path from "path";
-import { dirname } from 'path';
+
 
 dotenv.config();
 
